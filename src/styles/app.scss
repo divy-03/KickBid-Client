@@ -1,1 +1,8 @@
 @import "default";
+@import "mixin";
+@import "font";
+
+.App {
+  @include flex();
+  height: 100dvh;
+}

@@ -6,7 +6,7 @@ const App = () => {
   if (isLoading) return <div>Loading....</div>;
   console.log(data);
 
-  return <div>{data.hello}</div>;
+  return <div className="App">{data.hello}</div>;
 };
 
 export default App;
