@@ -10,9 +10,10 @@ import Loader from "./components/Loader";
 // import LocomotiveScroll from "locomotive-scroll";
 import "./styles/app.scss";
 import { lazy, Suspense } from "react";
+import Home from "./pages/Home";
 // import Preloader from "./components/Preloader";
 
-const Login = lazy(() => import("./components/Login"));
+const Login = lazy(() => import("./pages/Login"));
 
 const App = () => {
   // const locomotiveScroll = new LocomotiveScroll();
@@ -28,6 +29,7 @@ const App = () => {
         {/* <Preloader progress={progress} /> */}
         <div className="pages">
           <Routes>
+            <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
           </Routes>
         </div>

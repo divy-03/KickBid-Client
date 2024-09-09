@@ -1,7 +1,7 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 // import { useNavigate } from "react-router-dom";
 import { useRegisterUserMutation } from "../apis/UserApi";
-import Loader from "./Loader";
+import Loader from "../components/Loader";
 
 interface User {
   name: string;
