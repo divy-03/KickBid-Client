@@ -1,8 +1,9 @@
 @import "default";
 @import "mixin";
 @import "font";
+@import "loader";
+@import "login";
 
 .App {
   @include flex();
-  height: 100dvh;
 }

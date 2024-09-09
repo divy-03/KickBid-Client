@@ -1,12 +1,47 @@
 import { useHelloQuery } from "./apis/UserApi";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  // useLocation,
+} from "react-router-dom";
+import Loader from "./components/Loader";
+// import useProgressTracker from "./progress";
+// import LocomotiveScroll from "locomotive-scroll";
 import "./styles/app.scss";
+import { lazy, Suspense } from "react";
+// import Preloader from "./components/Preloader";
+
+const Login = lazy(() => import("./components/Login"));
 
 const App = () => {
+  // const locomotiveScroll = new LocomotiveScroll();
+  // console.log(locomotiveScroll);
+  // const progress = useProgressTracker();
   const { data, isLoading } = useHelloQuery({});
-  if (isLoading) return <div>Loading....</div>;
+  if (isLoading) return <Loader />;
   console.log(data);
 
-  return <div className="App">{data.hello}</div>;
+  return (
+    <Suspense fallback={<Loader />}>
+      <div className="App">
+        {/* <Preloader progress={progress} /> */}
+        <div className="pages">
+          <Routes>
+            <Route path="/login" element={<Login />} />
+          </Routes>
+        </div>
+      </div>
+    </Suspense>
+  );
 };
 
-export default App;
+const AppRouter = () => {
+  return (
+    <Router>
+      <App />
+    </Router>
+  );
+};
+
+export default AppRouter;

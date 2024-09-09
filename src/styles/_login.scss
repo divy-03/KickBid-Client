@@ -1,0 +1,10 @@
+.loginCont {
+  @include flex();
+  height: 100dvh;
+  width: 100vw;
+  background-color: lightblue;
+
+  > div > form {
+    @include flex(column);
+  }
+}
