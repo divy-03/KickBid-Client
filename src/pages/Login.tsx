@@ -1,6 +1,6 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 // import { useNavigate } from "react-router-dom";
-import { useRegisterUserMutation } from "../apis/UserApi";
+import { useLoginUserMutation, useRegisterUserMutation } from "../apis/UserApi";
 import Loader from "../components/Loader";
 
 interface User {
@@ -12,24 +12,52 @@ interface User {
 const Login = () => {
   //   const navigate = useNavigate();
   const [user, setuser] = useState<User>({ name: "", email: "", password: "" });
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+
+  const [loginUser, { isLoading: ll }] = useLoginUserMutation();
+  const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const result = await loginUser({ email, password });
+    console.log(result);
+  };
 
   const dataChange = (e: ChangeEvent<HTMLInputElement>) => {
     setuser({ ...user, [e.target.name]: e.target.value });
   };
 
-  const [registerUser, { isLoading }] = useRegisterUserMutation();
-  const registerSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  const [registerUser, { isLoading: rl }] = useRegisterUserMutation();
+  const handleRegister = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const result = await registerUser(user);
     console.log(result);
   };
 
-  if (isLoading) return <Loader />;
+  if (ll || rl) return <Loader />;
 
   return (
     <div className="loginCont">
       <div>
-        <form onSubmit={registerSubmit}>
+        <form onSubmit={handleLogin}>
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <input type="submit" value="Submit" />
+        </form>
+      </div>
+      <div>
+        <form onSubmit={handleRegister}>
           <input
             type="text"
             name="name"
@@ -47,9 +75,9 @@ const Login = () => {
           <input
             type="password"
             name="password"
+            placeholder="Password"
             value={user.password}
             onChange={dataChange}
-            placeholder="Password"
           />
           <input type="submit" value="Submit" />
         </form>

@@ -11,9 +11,11 @@ import Loader from "./components/Loader";
 import "./styles/app.scss";
 import { lazy, Suspense } from "react";
 import Home from "./pages/Home";
+import Navbar from "./components/Navbar";
 // import Preloader from "./components/Preloader";
 
 const Login = lazy(() => import("./pages/Login"));
+const UserProfile = lazy(() => import("./pages/UserProfile"));
 
 const App = () => {
   // const locomotiveScroll = new LocomotiveScroll();
@@ -28,9 +30,11 @@ const App = () => {
       <div className="App">
         {/* <Preloader progress={progress} /> */}
         <div className="pages">
+          <Navbar />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/profile" element={<UserProfile />} />
           </Routes>
         </div>
       </div>
